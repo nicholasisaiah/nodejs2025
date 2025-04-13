@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const path = require("path");
 const { collection, TimeRecord } = require("./config");
 const bcrypt = require('bcrypt');
@@ -137,5 +138,6 @@ app.listen(port, () => {
     }
   });
   
+  module.exports.handler = serverless(app);
 
 // run: nodemon src/index.js
