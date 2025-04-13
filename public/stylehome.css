@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    /*Menggunakan font Poppins dan sans-serif*/ 
+    font-family: 'Poppins', sans-serif;
+    /*Membuat tata letak lebih dinamis*/
+    display: flex;
+    /*Menyusun elemen yang ada menjadi vertikal*/
+    flex-direction: column;
+    /*Mmeposisiskan elemen secara vertikal ditengah*/
+    justify-content: center;
+    /*Memposisiskan elemen secara horizontal ditengah*/
+    align-items: center;
+    /*Tinggi elemen body menjadi 100% dari Viewport Height (tampilan layar)*/
+    height: 100vh;
+    /*gradasi 135 derajat lalu perpaduan antara warna ungu gelap dan biru muda*/
+    /*background: linear-gradient(135deg, #502c46, #8fc2e7); */
+    background-image: url(../img/545799.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*Warna text menjadi putih*/
+    color: #ffffff;
+    /*text body berada ditengah secara horizontal*/
+    text-align: center;
+    /*menghilangkan margin bawaan dari body*/
+    margin: 0;
+    /*Menambahkan ruang (jarak dalam) 10pixel*/
+    padding: 10px;
+}
+
+.history-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    backdrop-filter: blur(10px);
+}
+
+.history-container h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+#history-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#history-list li {
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+
+.main-container {
+    /*Membuat tata letak lebih dinamis dengan menggunakan flexbox*/
+    display: flex;
+    /*Memposisiskan elemen secara horizontal ditengah*/
+    align-items: center;
+    /*Menambahkan jarak 30 pixel antara elemen-elemen anak dalam main-container*/
+    gap: 30px;
+}
+
+.container {
+    /*Mengatur warna background dengan hijau gelap dengan tingkat transparansi 27%*/
+    background: rgba(147, 245, 227, 0.27);
+    /*Menambahkan ruang (jarak dalam) 15 pixel*/
+    padding: 15px;
+    /*Membuat sudut elemen menjadi melengkung sebanyak 20 pixel*/
+    border-radius: 20px;
+    /*0px geser ke kanan/kiri, 6px turun kebawah, 20px bayangan melebar. Warna hitam dgn transparansi 20%*/
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    /*Warna text hitam*/
+    color: black;
+    /*text body berada ditengah secara horizontal*/
+    text-align: center;
+    /*Elemen dapat dipindahkan dengan properti seperti top, left, right, atau buttom*/
+    position: relative;
+    /*Memberikan efek blur sebesar 10px pada background elemen*/
+    backdrop-filter: blur(10px);
+}
+
+.time {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: rgb(133, 212, 237);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.countdown-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.countdown-options label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.countdown-options button {
+    background: #a6e0e9;
+    color: rgb(27, 77, 73);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.countdown-options button:hover,
+.buttons button:hover {
+    background: #a1ffe1;
+    transform: scale(1.05);
+}
+
+.buttons button:hover {
+    background: #a1ffe1;
+    transform: scale(1.05);
+}
+
+.lap-container {
+    margin-top: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+    text-align: left;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 10px;
+}
+
+/* Memberi jarak antara countdown dan jam dunia */
+.countdown-options {
+    margin-bottom: 30px;
+}
+
+#world-clocks {
+    background: rgba(185, 98, 98, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
+}
+
+#world-clocks h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #87f1f1;
+    margin-bottom: 10px;
+}
+
+#world-clocks p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #7fc7c7;
+    margin: 5px 0;
+}
+
+
+.buttons button {
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: rgb(98, 45, 117);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.start {
+    background: #a6e0e9;
+}
+
+.stop {
+    background: #cee9a6;
+}
+
+.lap {
+    background: #a6e0e9;
+}
+
+.reset {
+    background: #a6e0e9;
+}
+
+.countdown {
+    background: #a6e0e9;
+}
+
+.buttons button:hover {
+    opacity: 0.9;
+}

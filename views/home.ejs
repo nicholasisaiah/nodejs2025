@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/stylehome.css">
+</head>
+
+<body>
+
+    <!--Bagian yang berisi Timer dan Countdown-->
+    <div class="main-container">
+        <div class="container">
+            <!--Menampilkan waktu-->
+            <div class="time" id="display">00:00:00</div>
+            <!--Bagian yang berisi tombol-tombol mulai dari tombo start, lap, reset, hingga countdown-->
+            <div class="buttons">
+                <button id="startStopButton" class="start">▶ Mulai</button>
+                <button id="lapButton" class="lap">⏱ Lap</button>
+                <button id="resetButton" class="reset">🔄 Reset</button>
+                <button id="countdownButton" class="countdown">⏳ Countdown</button>
+            </div>
+            <div class="buttons" style="margin-top: 20px;">
+                <a href="/history-page" class="button">📜 Lihat Riwayat</a>
+            </div>
+            <div class="lap-container" id="laps"></div>
+        </div>
+
+        <!--Bagian yang menampilkan opsi durasi countdown-->
+        <div class="countdown-options">
+            <label>Durasi Countdown:</label>
+            <button class="countdown-option" data-minutes="5">5 Menit</button>
+            <button class="countdown-option" data-minutes="10">10 Menit</button>
+            <button class="countdown-option" data-minutes="15">15 Menit</button>
+            <button class="countdown-option" data-minutes="30">30 Menit</button>
+            <button class="countdown-option" data-minutes="60">60 Menit</button>
+        </div>
+    </div>
+
+    <!--Bagian yang menampilkan jam dunia-->
+    <div id="world-clocks">
+        <h2>Jam Dunia Digital</h2>
+        <p id="clock-jakarta">Jakarta: --:--:--</p>
+        <p id="clock-kyoto">Kyoto: --:--:--</p>
+        <p id="clock-hongkong">Hong Kong: --:--:--</p>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+
+</html>
