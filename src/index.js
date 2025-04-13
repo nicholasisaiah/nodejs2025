@@ -87,6 +87,7 @@ app.get("/history-page", (req, res) => {
 
 // Define Port for Application
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 });
