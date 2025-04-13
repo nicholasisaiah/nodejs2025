@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../img/545799.jpg);
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+.form-container {
+   /* width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;*/
+        /*Mengatur warna background dengan hijau gelap dengan tingkat transparansi 27%*/
+        background: rgba(147, 245, 227, 0.27);
+        /*Menambahkan ruang (jarak dalam) 15 pixel*/
+        padding: 15px;
+        /*Membuat sudut elemen menjadi melengkung sebanyak 20 pixel*/
+        border-radius: 20px;
+        /*0px geser ke kanan/kiri, 6px turun kebawah, 20px bayangan melebar. Warna hitam dgn transparansi 20%*/
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        /*Warna text hitam*/
+        color: black;
+        /*text body berada ditengah secara horizontal*/
+        text-align: center;
+        /*Elemen dapat dipindahkan dengan properti seperti top, left, right, atau buttom*/
+        position: relative;
+        /*Memberikan efek blur sebesar 10px pada background elemen*/
+        backdrop-filter: blur(10px);
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #472dbb;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    /*background-color: #4565a0;*/
+    background: #0f798a;
+    color: rgb(153, 255, 247);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  p {
+    margin-top: 15px;
+  }
+

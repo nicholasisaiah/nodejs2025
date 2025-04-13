@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Riwayat Stopwatch</title>
+  <link rel="stylesheet" href="/stylehome.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="judul">Riwayat Penggunaan Stopwatch & Countdown</h1>
+
+    <!-- 🔽 Dropdown filter -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <label for="filter">Filter:</label>
+      <select id="filter" onchange="fetchHistory()">
+        <option value="" disabled selected>Pilihan Filter</option>
+        <option value="all">Semua</option>
+        <option value="stopwatch">Stopwatch</option>
+        <option value="countdown">Countdown</option>
+      </select>
+    </div>
+
+    <!-- 🔽 Daftar riwayat -->
+    <div class="history-container">
+      <ul id="history-list">
+        <li>Memuat data...</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 30px; text-align: center;">
+      <a href="/home-page" class="button">← Kembali ke Halaman Utama</a>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
