@@ -69,54 +69,81 @@ Website Stopwatch Countdown adalah aplikasi web yang menyediakan fitur stopwatch
 
 ## 5. API Endpoint
 ### Autentikasi
-| Method | Endpoint           | Deskripsi                |
-|--------|--------------------|--------------------------|
-| POST   | `/api/auth/register` | Registrasi user         |
-| POST   | `/api/auth/login`    | Login user              |
-| POST   | `/api/auth/logout`   | Logout user             |
+| Method | Endpoint             | Deskripsi              |
+|--------|----------------------|------------------------|
+| POST   | `/api/auth/register` | Registrasi user        |
+| POST   | `/api/auth/login`    | Login user             |
+| POST   | `/api/auth/logout`   | Logout user            |
 
 ### User
-| Method | Endpoint               | Deskripsi                       |
-|--------|------------------------|---------------------------------|
-| POST   | `/admin/user/update/:id` | Ubah role user                |
-| POST   | `/admin/user/delete/:id` | Hapus user                    |
-| POST   | `/admin/user/update-username/:id` | Ubah username       |
+| Method | Endpoint                          | Deskripsi            |
+|--------|-----------------------------------|----------------------|
+| POST   | `/admin/user/update/:id`          | Ubah role user       |
+| POST   | `/admin/user/delete/:id`          | Hapus user           |
+| POST   | `/admin/user/update-username/:id` | Ubah username        |
 
 ### Record / Stopwatch / Countdown
-| Method | Endpoint                     | Deskripsi                           |
-|--------|------------------------------|-------------------------------------|
+| Method | Endpoint                     | Deskripsi                             |
+|--------|------------------------------|---------------------------------------|
 | POST   | `/api/records`               | Simpan data waktu stopwatch/countdown |
-| GET    | `/api/records`               | Ambil seluruh riwayat pengguna     |
-| DELETE | `/api/records/:id`           | Hapus record                       |
-| POST   | `/admin/record/label/:id`    | Ubah label record (admin)          |
+| GET    | `/api/records`               | Ambil seluruh riwayat pengguna        |
+| DELETE | `/api/records/:id`           | Hapus record                          |
+| POST   | `/admin/record/label/:id`    | Ubah label record (admin)             |
 
 ---
 
 ## 6. Struktur Folder (Contoh)
 ```
 StopwatchCountdownApp/
-├── public/
-│   └── style.css
-├── src/
-│   ├── config/
+├── public/                      # File statis seperti CSS, JS, dan gambar
+│   ├── img/                    # Gambar latar/background
+│   ├── app.js                  # Script utama stopwatch & countdown (frontend)
+│   ├── style.css               # Style umum
+│   ├── styleabout.css          # Style halaman about
+│   └── stylehome.css           # Style halaman home
+│
+├── src/                        # Folder source utama (backend logic)
+│   ├── config/                 # Konfigurasi seperti koneksi database
 │   │   └── dbConnect.js
-│   ├── controllers/
+│   │
+│   ├── controllers/            # Logika utama dari route (controller)
+│   │   ├── adminController.js
 │   │   └── authController.js
-│   ├── models/
-│   │   ├── userModel.js
-│   │   └── recordModel.js
-│   ├── routes/
+│   │
+│   ├── middlewares/           # Middleware untuk otentikasi dan role
+│   │   ├── authMiddleware.js
+│   │   └── roleMiddleware.js
+│   │
+│   ├── models/                 # Model mongoose untuk MongoDB
+│   │   ├── recordModel.js
+│   │   └── userModel.js
+│   │
+│   ├── routes/                 # Definisi rute aplikasi (API endpoint)
+│   │   ├── adminRoutes.js
 │   │   ├── authRoutes.js
-│   │   └── userRoutes.js
-│   ├── views/
-│   │   ├── home.ejs
-│   │   ├── login.ejs
-│   │   ├── signup.ejs
-│   │   └── admin.ejs
-│   └── index.js
-├── .env
-├── package.json
-└── README.md
+│   │   ├── userRoutes.js
+│   │   └── index.js            # Entry point server
+│
+├── views/                      # Template HTML berbasis EJS
+│   ├── partials/               # Komponen template yang dapat digunakan ulang
+│   │   ├── header.ejs
+│   │   ├── header2.ejs
+│   │   └── header3.ejs
+│   │
+│   ├── about.ejs               # Halaman about
+│   ├── admin.ejs               # Halaman admin (manajemen user & data)
+│   ├── history.ejs             # Halaman riwayat penggunaan stopwatch/countdown
+│   ├── home.ejs                # Halaman utama stopwatch & countdown
+│   ├── login.ejs               # Halaman login
+│   └── signup.ejs              # Halaman pendaftaran
+│
+├── .env                        # File environment untuk menyimpan variabel sensitif
+├── .gitignore                  # File untuk mengabaikan file di Git
+├── LICENSE                     # Lisensi project
+├── package.json                # Informasi dan dependensi project
+├── package-lock.json           # Lock file dependensi
+├── README.md                   # Dokumentasi utama proyek
+└── vercel.json                 # Konfigurasi untuk deployment di Vercel (jika digunakan)
 ```
 
 ---
