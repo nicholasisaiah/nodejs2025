@@ -25,7 +25,7 @@ Website Stopwatch Countdown adalah aplikasi web yang menyediakan fitur stopwatch
 ### Langkah Instalasi
 1. Clone repositori:
    ```bash
-   git clone <URL_REPOSITORY>
+   git clone <https://github.com/nicholasisaiah/nodejs2025>
    cd <folder_proyek>
    ```
 
