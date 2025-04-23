@@ -3,25 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <div class="form-container">
-        <h2>SignUp</h2>
-        <form action="/signup" method="post">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="password">password:</label>
-            <input type="password" id="password" name="password" placeholder="password" required>
-          </div>
-          <button type="submit" class="submit-btn">Submit</button>
+        <h2>Sign Up</h2>
+        <div id="error-message" class="error-message" style="display: none; color: red; margin-bottom: 10px;"></div>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="submit-btn">Sign Up</button>
         </form>
-      </div>
+        <p>Already have an account? <a class="link" href="/login">Login</a></p>
+    </div>
     
+    <script>
+            const passwordField = document.getElementById('password');
+    const errorMessage = document.getElementById('error-message');
+    
+    // Validasi real-time password
+    passwordField.addEventListener('input', () => {
+      const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?])(?=.{8,})/;
+      if (!regex.test(passwordField.value)) {
+        passwordField.setCustomValidity("Password harus minimal 8 karakter, mengandung huruf besar dan karakter spesial.");
+      } else {
+        passwordField.setCustomValidity("");
+      }
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = passwordField.value;
+      
+      try {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password, role: 'user' }),
+          credentials: 'include'
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          alert(data.message || "Registrasi berhasil!");
+          window.location.href = data.redirectTo || "/login";
+        } else {
+          errorMessage.textContent = data.message || 'Registration failed';
+          errorMessage.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        errorMessage.textContent = 'Terjadi kesalahan. Silakan coba lagi.';
+        errorMessage.style.display = 'block';
+      }
+    });
+    </script>
 </body>
 </html>

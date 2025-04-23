@@ -10,19 +10,55 @@
 
     <div class="form-container">
         <h2>Login</h2>
-        <form action="/login" method="post">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="password">password:</label>
-            <input type="password" id="password" name="password" placeholder="password" required>
-          </div>
-          <button type="submit" class="submit-btn">Login</button>
+        <div id="error-message" class="error-message" style="display: none; color: red; margin-bottom: 10px;"></div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
         </form>
-        <p>Don't have an account? <a class="link" href="/signup">SignUp</a></p>
-      </div>
+        <p>Don't have an account? <a class="link" href="/signup">Sign Up</a></p>
+    </div>
     
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password }),
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Redirect based on user role
+                    window.location.href = data.redirectTo || '/home-page';
+                } else {
+                    const errorMsg = document.getElementById('error-message');
+                    errorMsg.textContent = data.message || 'Login failed';
+                    errorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                const errorMsg = document.getElementById('error-message');
+                errorMsg.textContent = 'An error occurred. Please try again.';
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>

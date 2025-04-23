@@ -9,7 +9,8 @@
 </head>
 
 <body>
-
+    <!-- Include header partial -->
+    <%- include('partials/header') %>
     <!--Bagian yang berisi Timer dan Countdown-->
     <div class="main-container">
         <div class="container">
@@ -22,9 +23,9 @@
                 <button id="resetButton" class="reset">🔄 Reset</button>
                 <button id="countdownButton" class="countdown">⏳ Countdown</button>
             </div>
-            <div class="buttons" style="margin-top: 20px;">
+            <!-- <div class="buttons" style="margin-top: 20px;">
                 <a href="/history-page" class="button">📜 Lihat Riwayat</a>
-            </div>
+            </div> -->
             <div class="lap-container" id="laps"></div>
         </div>
 

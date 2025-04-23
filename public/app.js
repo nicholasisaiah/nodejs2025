@@ -61,23 +61,6 @@ function updateDisplay() {
         (seconds < 10 ? "0" + seconds : seconds);
 }
 
-// async function fetchHistory(type, startTime, endTime) {
-//     const duration = endTime - startTime;
-
-//     try {
-//         const response = await fetch("http://localhost:3000/save-time", {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify({ type, startTime, endTime, duration }),
-//         });
-
-//         const result = await response.json();
-//         console.log(result.message);
-//     } catch (error) {
-//         console.error("Gagal menyimpan waktu:", error);
-//     }
-// }
-
 function stopStopwatch() {
     clearInterval(timer);
     isRunning = false;
@@ -275,44 +258,28 @@ async function saveTimeToDB(type, startTime, endTime) {
     const duration = endTime - startTime;
 
     try {
-        await fetch("/save-time", {
+        const response = await fetch("/api/records", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ type, startTime, endTime, duration }),
+            credentials: "include"
         });
+
+        if (!response.ok) {
+            const error = await response.json();
+            if (response.status === 401) {
+                // Token expired or invalid, redirect to login
+                window.location.href = "/login";
+                return;
+            }
+            throw new Error(error.message || "Failed to save time");
+        }
     } catch (error) {
-        console.error("Gagal menyimpan waktu:", error);
+        console.error("Error saving time:", error);
+        alert("Failed to save time. Please try again.");
     }
 }
 
-// async function fetchHistory() {
-//     try {
-//         const response = await fetch("/history");
-//         const records = await response.json();
-
-//         const historyList = document.getElementById("history-list");
-//         historyList.innerHTML = "";
-
-//         if (records.length === 0) {
-//             historyList.innerHTML = "<li>Tidak ada riwayat ditemukan.</li>";
-//             return;
-//         }
-
-//         records.forEach(record => {
-//             const durasiDetik = Math.floor(record.duration / 1000);
-//             const waktu = new Date(record.endTime).toLocaleString("id-ID");
-
-//             const listItem = document.createElement("li");
-//             listItem.innerHTML = `
-//                 ${record.type.toUpperCase()} | ${waktu} | Durasi: ${durasiDetik} detik
-//                 <button onclick="deleteHistory('${record._id}')" style="margin-left: 10px; background: crimson; color: white; border: none; padding: 3px 8px; border-radius: 5px; cursor: pointer;">Hapus</button>
-//             `;
-//             historyList.appendChild(listItem);
-//         });
-//     } catch (error) {
-//         console.error("Gagal mengambil riwayat:", error);
-//     }
-// }
 async function fetchHistory() {
     const selectedType = document.getElementById("filter")?.value;
 
@@ -322,8 +289,21 @@ async function fetchHistory() {
     }
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            credentials: "include" 
+        });
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                // Token expired or invalid, redirect to login
+                window.location.href = "/login";
+                return;
+            }
+            throw new Error("Failed to fetch history");
+        }
+        
         const records = await response.json();
+        console.log("Fetched records:", records); // DEBUG
 
         const historyList = document.getElementById("history-list");
         historyList.innerHTML = "";
@@ -340,32 +320,88 @@ async function fetchHistory() {
             const listItem = document.createElement("li");
             listItem.innerHTML = `
                 ${record.type.toUpperCase()} | ${waktu} | Durasi: ${durasiDetik} detik
-                <button onclick="deleteHistory('${record._id}')" style="margin-left: 10px; background: crimson; color: white; border: none; padding: 3px 8px; border-radius: 5px; cursor: pointer;">Hapus</button>
+                <button onclick="deleteHistory('${record._id}')" class="delete-btn">Hapus</button>
             `;
             historyList.appendChild(listItem);
         });
     } catch (error) {
-        console.error("Gagal mengambil riwayat:", error);
+        console.error("Error fetching history:", error);
+        const historyList = document.getElementById("history-list");
+        historyList.innerHTML = "<li>Gagal memuat riwayat. Silakan coba lagi.</li>";
     }
 }
 
+function toggleLabelEdit(id) {
+    const display = document.getElementById(`label-display-${id}`);
+    const form = document.getElementById(`label-form-${id}`);
+    if (form.style.display === "none") {
+      form.style.display = "inline";
+      display.style.display = "none";
+    } else {
+      form.style.display = "none";
+      display.style.display = "inline";
+    }
+  }
 
 async function deleteHistory(id) {
     const konfirmasi = confirm("Yakin ingin menghapus riwayat ini?");
     if (!konfirmasi) return;
 
     try {
-        const response = await fetch(`/history/${id}`, { method: "DELETE" });
+        const response = await fetch(`/api/records/${id}`, { 
+            method: "DELETE", 
+            credentials: "include" 
+        });
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                // Token expired or invalid, redirect to login
+                window.location.href = "/login";
+                return;
+            }
+            throw new Error("Failed to delete history");
+        }
+        
         const result = await response.json();
 
         if (result.success) {
             fetchHistory(); // refresh
         } else {
-            alert("Gagal menghapus riwayat.");
+            alert("Gagal menghapus riwayat: " + (result.error || "Unknown error"));
         }
     } catch (error) {
-        console.error("Error saat menghapus:", error);
+        console.error("Error deleting history:", error);
+        alert("Gagal menghapus riwayat. Silakan coba lagi.");
     }
 }
 
-document.addEventListener("DOMContentLoaded", fetchHistory);
+
+
+// Function to handle logout
+async function logout() {
+    try {
+        const response = await fetch("/api/auth/logout", {
+            method: "POST",
+            credentials: "include"
+        });
+        
+        if (response.ok) {
+            window.location.href = "/login";
+        } else {
+            alert("Logout failed. Please try again.");
+        }
+    } catch (error) {
+        console.error("Logout error:", error);
+    }
+}
+
+// Add logout button event listener if it exists
+document.addEventListener("DOMContentLoaded", () => {
+    fetchHistory();
+    
+    // Add logout functionality if logout button exists
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", logout);
+    }
+});

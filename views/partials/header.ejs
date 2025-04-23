@@ -1,0 +1,54 @@
+<div class="header">
+    <nav class="navigation">
+        <a href="/home-page" class="nav-link">Home</a>
+        <a href="/history-page" class="nav-link">History</a>
+        <% if (locals.user && locals.user.role === 'admin') { %>
+            <a href="/admin-page" class="nav-link">Admin</a>
+        <% } %>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+    </nav>
+</div>
+
+<style>
+    .header {
+        background-color: #33333392;
+        padding: 10px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        
+    }
+    
+    .navigation {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    
+    .nav-link {
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+        font-weight: bold;
+    }
+    
+    .nav-link:hover {
+        text-decoration: underline;
+    }
+    
+    .logout-btn {
+        background-color: #e64b4b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    /* #ff7676
+    #e64b4b */
+    .logout-btn:hover {
+        background-color: #ff7676;
+        transform: scale(1.05);
+    }
+</style> 

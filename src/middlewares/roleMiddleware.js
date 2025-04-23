@@ -1,0 +1,17 @@
+/**
+ * Middleware to authorize specific roles
+ * @param {...string} allowedRoles - Roles allowed to access the route
+ * @returns {function} Express middleware
+ */
+const authorizeRoles = (...allowedRoles) => {
+    return (req, res, next) => {
+        if (!req.user || !allowedRoles.includes(req.user.role)) {
+            return res.status(403).json({ 
+                message: "Access denied: Insufficient permissions" 
+            });
+        }
+        next();
+    };
+};
+
+module.exports = authorizeRoles;
