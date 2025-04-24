@@ -111,21 +111,21 @@ app.post("/api/records", verifyToken, async (req, res) => {
   }
 });
 
-// app.delete("/api/records/:id", verifyToken, async (req, res) => {
-// try {
-//   const record = await TimeRecord.findById(req.params.id);
-//   if (!record) return res.status(404).json({ success: false, error: "Record not found" });
+app.delete("/api/records/:id", verifyToken, async (req, res) => {
+try {
+  const record = await TimeRecord.findById(req.params.id);
+  if (!record) return res.status(404).json({ success: false, error: "Record not found" });
 
-//   if (record.userId && req.user?.id && record.userId.toString() !== req.user.id) {
-//     return res.status(403).json({ success: false, error: "Not authorized" });
-//   }
+  if (record.userId && req.user?.id && record.userId.toString() !== req.user.id) {
+    return res.status(403).json({ success: false, error: "Not authorized" });
+  }
 
-//   await TimeRecord.findByIdAndDelete(req.params.id);
-//   return res.json({ success: true });
-// } catch (error) {
-//   return res.status(500).json({ success: false, error: "Gagal menghapus data" });
-// }
-// });
+  await TimeRecord.findByIdAndDelete(req.params.id);
+  return res.json({ success: true });
+} catch (error) {
+  return res.status(500).json({ success: false, error: "Gagal menghapus data" });
+}
+});
 
 router.post("/admin/record/delete/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
   const recordId = req.params.id;
