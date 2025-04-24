@@ -1,12 +1,12 @@
 const express = require("express");
-const dotenv = require("dotenv").config();
+const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const dbConnect = require("./config/dbConnect");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const { verifyToken, verifyAdmin } = require("./middlewares/authMiddleware");
 const authorizeRoles = require("./middlewares/roleMiddleware");
-
+dotenv.config();
 const User = require("./models/userModel");
 const Record = require("./models/recordModel");
 const TimeRecord = require("./models/recordModel");

@@ -283,7 +283,7 @@ async function saveTimeToDB(type, startTime, endTime) {
 async function fetchHistory() {
     const selectedType = document.getElementById("filter")?.value;
 
-    let url = "/history";
+    let url = "/api/records";
     if (selectedType && selectedType !== "all") {
         url += `?type=${selectedType}`;
     }
